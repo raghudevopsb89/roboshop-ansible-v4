@@ -21,3 +21,10 @@
     dest: /app
     remote_src: yes
 
+- name: Load mysql-schema
+  when: schema_load | default('false') | bool
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: mysql-schema
+
+

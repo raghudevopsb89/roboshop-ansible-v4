@@ -1,2 +1,8 @@
 component_name: shipping
 
+schema_load: true
+schema_files:
+  - schema
+  - app-user
+  - master-data
+

@@ -20,3 +20,9 @@
     name: valkey
     state: restarted
     enabled: yes
+
+- name: Import node_exporter from Common Role
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: node-exporter
+

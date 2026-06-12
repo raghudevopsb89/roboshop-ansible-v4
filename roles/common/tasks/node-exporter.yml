@@ -1,7 +1,10 @@
 - name: Download prometheus exporter
-  ansible.builtin.unarchive:
-    src: https://github.com/prometheus/node_exporter/releases/download/v1.11.1/node_exporter-1.11.1.linux-amd64.tar.gz
-    dest: /opt
+  ansible.builtin.shell: |
+    cd /opt
+    curl -L -O https://github.com/prometheus/node_exporter/releases/download/v1.11.1/node_exporter-1.11.1.linux-amd64.tar.gz
+    tar -xf node_exporter-1.11.1.linux-amd64.tar.gz
+    mv node_exporter-1.11.1.linux-amd64 node_exporter
+    rm -f node_exporter-1.11.1.linux-amd64.tar.gz
 
 - name: Create prometheus service file
   ansible.builtin.copy:
@@ -14,7 +17,7 @@
 
       [Service]
       Type=simple
-      ExecStart=/opt/node_exporter-1.11.1.linux-amd64/node_exporter --collector.systemd
+      ExecStart=/opt/node_exporter/node_exporter --collector.systemd
 
       [Install]
       WantedBy=multi-user.target
